@@ -33,8 +33,8 @@ Este repositorio corresponde exclusivamente al **Backend**. El frontend compleme
    docker compose up --build
    ```
 3. Accede a la documentación interactiva en:
-   - Swagger UI: `http://localhost:8000/docs`
-   - ReDoc: `http://localhost:8000/redoc`
+   - Swagger UI: `http://localhost:8001/docs`
+   - ReDoc: `http://localhost:8001/redoc`
 
 ## Inicio Rápido Local (Sin Docker)
 
