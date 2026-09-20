@@ -2,6 +2,8 @@
 
 Backend en Python y FastAPI para el visualizador de planes de estudio universitarios BUAP, sistema de foro y gobernanza estudiantil con aprobación por votos.
 
+Este repositorio corresponde exclusivamente al **Backend**. El frontend complementario se encuentra en [Student_Visual_Carrer_Front](https://github.com/Bryborj/Student_Visual_Carrer_Front).
+
 ## Características
 
 - 🚀 **FastAPI + Uvicorn**: API asíncrona de alto rendimiento con documentación OpenAPI interactiva (`/docs` y `/redoc`).
@@ -55,3 +57,11 @@ Backend en Python y FastAPI para el visualizador de planes de estudio universita
 ```bash
 pytest tests/ -v
 ```
+
+---
+
+## 👥 Trabajo Colaborativo
+
+- **Si solo desarrollas Backend:** Clona este repositorio, ejecuta `docker compose up` o tu entorno virtual de Python, y prueba directamente en `http://localhost:8000/docs`.
+- **Si trabajas en Fullstack:** Clona ambos repositorios (`Student_Visual_Carrer_Back` y `Student_Visual_Carrer_Front`) en una carpeta contenedora común para ejecutar ambos servicios simultáneamente.
+
