@@ -48,3 +48,9 @@ htmlcov/
 .env.*
 !.env.example
 !.env.prod.example
+
+# Graphify runtime & cache locales
+graphify-out/.graphify_python
+graphify-out/.graphify_root
+graphify-out/cache/
+

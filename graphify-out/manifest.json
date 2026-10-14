@@ -1,0 +1,182 @@
+{
+  "app/__init__.py": {
+    "mtime": 1789889453.0106747,
+    "seen": 1791941465.4947128,
+    "ast_hash": "6004d7a8ebe42d0e29a4dfe8e7f2a3df",
+    "semantic_hash": "6004d7a8ebe42d0e29a4dfe8e7f2a3df"
+  },
+  "app/api/routers/admin.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.4947188,
+    "ast_hash": "254b8fcac1fcb220418370b1f9bace4b",
+    "semantic_hash": "254b8fcac1fcb220418370b1f9bace4b"
+  },
+  "app/api/routers/auth.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.4947212,
+    "ast_hash": "ac3970ebfcbfd500b85c11a2f38ce259",
+    "semantic_hash": "ac3970ebfcbfd500b85c11a2f38ce259"
+  },
+  "app/api/routers/email_verify.py": {
+    "mtime": 1791940345.2785976,
+    "seen": 1791941465.4947228,
+    "ast_hash": "b7410ed409a10a87d6eba08dcebd68f6",
+    "semantic_hash": "b7410ed409a10a87d6eba08dcebd68f6"
+  },
+  "app/api/routers/forum.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.494724,
+    "ast_hash": "057176e82f64c831ba661b8ce537e9fb",
+    "semantic_hash": "057176e82f64c831ba661b8ce537e9fb"
+  },
+  "app/api/routers/plans.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.4947248,
+    "ast_hash": "1f13a3fa24c6af3a8fccc3ae6288b3b5",
+    "semantic_hash": "1f13a3fa24c6af3a8fccc3ae6288b3b5"
+  },
+  "app/api/routers/proposals.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.494726,
+    "ast_hash": "f15c76e8d7513b65607ce9cff9151aaa",
+    "semantic_hash": "f15c76e8d7513b65607ce9cff9151aaa"
+  },
+  "app/config.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.4947267,
+    "ast_hash": "bb8bc8f737597a2857b5d111a069868b",
+    "semantic_hash": "bb8bc8f737597a2857b5d111a069868b"
+  },
+  "app/database.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.4947274,
+    "ast_hash": "c4e98f117e727e308b761b3c47ab4a76",
+    "semantic_hash": "c4e98f117e727e308b761b3c47ab4a76"
+  },
+  "app/main.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.4947286,
+    "ast_hash": "a19de390164420f1561af770053a331a",
+    "semantic_hash": "a19de390164420f1561af770053a331a"
+  },
+  "app/security.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.494729,
+    "ast_hash": "0fa5b1159a0bad679d8b9a4f4effa0c2",
+    "semantic_hash": "0fa5b1159a0bad679d8b9a4f4effa0c2"
+  },
+  "app/services/email_service.py": {
+    "mtime": 1791940345.2865977,
+    "seen": 1791941465.4947302,
+    "ast_hash": "ce471f1795a8d0e4e1a400eec6cd697d",
+    "semantic_hash": "ce471f1795a8d0e4e1a400eec6cd697d"
+  },
+  "app/services/hunter_service.py": {
+    "mtime": 1791940345.2785976,
+    "seen": 1791941465.494731,
+    "ast_hash": "8a6897673bd57630d325a8605333d741",
+    "semantic_hash": "8a6897673bd57630d325a8605333d741"
+  },
+  "app/services/voting_service.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.4947317,
+    "ast_hash": "fc3863f78e7a483dfc6158d3aede2bcf",
+    "semantic_hash": "fc3863f78e7a483dfc6158d3aede2bcf"
+  },
+  "scripts/seed_dev.sh": {
+    "mtime": 1791940373.441982,
+    "seen": 1791941465.4947329,
+    "ast_hash": "b9e7ffa1e429b0693c67ccb7f35cd781",
+    "semantic_hash": "b9e7ffa1e429b0693c67ccb7f35cd781"
+  },
+  "tests/__init__.py": {
+    "mtime": 1789889521.0585892,
+    "seen": 1791941465.4947336,
+    "ast_hash": "a9c1d68c1b65f1a43ce07cd35286f069",
+    "semantic_hash": "a9c1d68c1b65f1a43ce07cd35286f069"
+  },
+  "tests/conftest.py": {
+    "mtime": 1791940326.4423416,
+    "seen": 1791941465.4947343,
+    "ast_hash": "ee585200630c73120440007a5aca8453",
+    "semantic_hash": "ee585200630c73120440007a5aca8453"
+  },
+  "tests/test_admin.py": {
+    "mtime": 1791940326.697345,
+    "seen": 1791941465.494735,
+    "ast_hash": "c7bea522dcf6a9abc865fd935885e9c1",
+    "semantic_hash": "c7bea522dcf6a9abc865fd935885e9c1"
+  },
+  "tests/test_api.py": {
+    "mtime": 1791940345.2775977,
+    "seen": 1791941465.4947362,
+    "ast_hash": "9de1a3ecdca3969b954fd53cf0d850fa",
+    "semantic_hash": "9de1a3ecdca3969b954fd53cf0d850fa"
+  },
+  "tests/test_auth_flow.py": {
+    "mtime": 1791940326.5073426,
+    "seen": 1791941465.494737,
+    "ast_hash": "0d441261baaf9dbf649f8131ec1f1ef4",
+    "semantic_hash": "0d441261baaf9dbf649f8131ec1f1ef4"
+  },
+  "tests/test_config.py": {
+    "mtime": 1791940411.904514,
+    "seen": 1791941465.4947376,
+    "ast_hash": "e8a90a98941af1d1cb6a196ca97d4b7a",
+    "semantic_hash": "e8a90a98941af1d1cb6a196ca97d4b7a"
+  },
+  "tests/test_forum.py": {
+    "mtime": 1791940326.5693433,
+    "seen": 1791941465.4947386,
+    "ast_hash": "d8283234b732bab14969f2f9a1e72ce4",
+    "semantic_hash": "d8283234b732bab14969f2f9a1e72ce4"
+  },
+  "tests/test_proposals.py": {
+    "mtime": 1791940326.6353443,
+    "seen": 1791941465.49474,
+    "ast_hash": "c90eda353cf2883a8cb5adb03a268288",
+    "semantic_hash": "c90eda353cf2883a8cb5adb03a268288"
+  },
+  "tests/test_security.py": {
+    "mtime": 1791940345.2775977,
+    "seen": 1791941465.494741,
+    "ast_hash": "6422f89e79f93cea3620cdfb9df7e505",
+    "semantic_hash": "6422f89e79f93cea3620cdfb9df7e505"
+  },
+  "tests/test_voting.py": {
+    "mtime": 1791940345.2855978,
+    "seen": 1791941465.4947417,
+    "ast_hash": "ed9c4dae9a49d9547cf6063d8d84ba1a",
+    "semantic_hash": "ed9c4dae9a49d9547cf6063d8d84ba1a"
+  },
+  ".github/workflows/ci.yml": {
+    "mtime": 1791940373.4989827,
+    "seen": 1791941465.4947426,
+    "ast_hash": "6e4605aba7e8416ddfa88689ab4eacb0",
+    "semantic_hash": "6e4605aba7e8416ddfa88689ab4eacb0"
+  },
+  "README.md": {
+    "mtime": 1791940373.5569835,
+    "seen": 1791941465.4947436,
+    "ast_hash": "b2685d3bd186ce8c2fdcbf135ce2a85a",
+    "semantic_hash": "b2685d3bd186ce8c2fdcbf135ce2a85a"
+  },
+  "docker-compose.yml": {
+    "mtime": 1791940253.6563523,
+    "seen": 1791941465.4947443,
+    "ast_hash": "0c2dc020ac3d0ad33cbf73f515d46e7e",
+    "semantic_hash": "0c2dc020ac3d0ad33cbf73f515d46e7e"
+  },
+  "requirements-dev.txt": {
+    "mtime": 1791940281.3741426,
+    "seen": 1791941465.4947453,
+    "ast_hash": "0b9e7402a029bb4acebedc11308b60f5",
+    "semantic_hash": "0b9e7402a029bb4acebedc11308b60f5"
+  },
+  "requirements.txt": {
+    "mtime": 1791940281.3753128,
+    "seen": 1791941465.4947462,
+    "ast_hash": "a0c325af7336d7b47b2f8223514b50e1",
+    "semantic_hash": "a0c325af7336d7b47b2f8223514b50e1"
+  }
+}
