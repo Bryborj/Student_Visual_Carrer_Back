@@ -1,4 +1,6 @@
+import json
 import logging
+from pathlib import Path
 
 import asyncpg
 
@@ -25,6 +27,45 @@ class Database:
             logger.info("Closing database pool...")
             await self.pool.close()
             logger.info("Database pool closed.")
+
+    async def seed_initial_data(self, conn):
+        """Puebla automáticamente las carreras oficiales si la tabla plans está vacía."""
+        seed_path = Path(__file__).parent / "data" / "initial_seed.json"
+        if not seed_path.exists():
+            return
+
+        plans_count = await conn.fetchval("SELECT count(*) FROM plans;")
+        if plans_count and plans_count > 0:
+            return
+
+        logger.info(f"Poblando datos iniciales desde {seed_path.name}...")
+        try:
+            with open(seed_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            for fac in data.get("faculties", []):
+                await conn.execute("""
+                    INSERT INTO faculties (id, name, logo_url)
+                    VALUES ($1, $2, $3)
+                    ON CONFLICT (name) DO UPDATE SET logo_url = EXCLUDED.logo_url;
+                """, fac["id"], fac["name"], fac.get("logo_url"))
+
+            for plan in data.get("plans", []):
+                courses_json = json.dumps(plan["courses"]) if not isinstance(plan["courses"], str) else plan["courses"]
+                electives_json = json.dumps(plan.get("electives", [])) if not isinstance(plan.get("electives", []), str) else plan.get("electives", [])
+                await conn.execute("""
+                    INSERT INTO plans (id, career, modalidad, faculty_id, courses, electives, min_credits, max_credits)
+                    VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb, $7, $8)
+                    ON CONFLICT (career, modalidad) DO NOTHING;
+                """, plan["id"], plan["career"], plan.get("modalidad", "Escolarizada"), plan.get("faculty_id"),
+                     courses_json, electives_json, plan.get("min_credits"), plan.get("max_credits"))
+
+            # Sincronizar secuencias serial de PostgreSQL
+            await conn.execute("SELECT setval(pg_get_serial_sequence('faculties', 'id'), coalesce(max(id), 1)) FROM faculties;")
+            await conn.execute("SELECT setval(pg_get_serial_sequence('plans', 'id'), coalesce(max(id), 1)) FROM plans;")
+            logger.info("Datos iniciales de planes y facultades cargados exitosamente.")
+        except Exception as e:
+            logger.warning(f"No se pudieron cargar los datos de semilla iniciales: {e}")
 
     async def init_tables(self):
         if not self.pool:
@@ -110,5 +151,6 @@ class Database:
                 );
             """)
             logger.info("Database tables verified and ready.")
+            await self.seed_initial_data(conn)
 
 db = Database()

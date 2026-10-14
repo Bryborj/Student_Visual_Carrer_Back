@@ -88,14 +88,18 @@ class VotingService:
             total_users = await conn.fetchval("SELECT COUNT(*) FROM forum_users;") or 1
 
             # 5. Evaluar umbral de auto-aprobación comunitaria
-            # Cumplimiento: votos superan usuarios registrados o el umbral proporcional/mínimo configurado
-            meets_user_count_threshold = votes_for > total_users
-            meets_configured_threshold = (
+            # Cumplimiento: votos a favor alcanzan el mínimo configurado Y el ratio de quórum respecto a los usuarios registrados
+            current_ratio = votes_for / max(total_users, 1)
+            auto_approved = (
                 votes_for >= settings.AUTO_APPROVE_MIN_VOTES and
-                (votes_for / max(total_users, 1)) >= settings.AUTO_APPROVE_RATIO
+                current_ratio >= settings.AUTO_APPROVE_RATIO
             )
 
-            auto_approved = meets_user_count_threshold or meets_configured_threshold
+            logger.info(
+                f"Voto en propuesta {proposal_id}: a favor={votes_for}, en contra={votes_against}, "
+                f"total_usuarios={total_users}, ratio={current_ratio:.2f} (meta: >= {settings.AUTO_APPROVE_RATIO}, "
+                f"min_votos: {settings.AUTO_APPROVE_MIN_VOTES}) -> auto_aprobado={auto_approved}"
+            )
 
             if auto_approved:
                 # Transacción atómica: aplicar cambios al plan oficial y marcar auto_approved

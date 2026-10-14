@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 from app.config import settings
 from app.database import db
-from app.security import hash_email, hash_password, verify_password
+from app.security import create_access_token, hash_email, hash_password, verify_password
 from app.services.email_service import EmailService
 from app.services.hunter_service import HunterService
 
@@ -160,8 +160,14 @@ async def handle_auth(req: AuthRequest):
 
                 await conn.execute("DELETE FROM forum_pins WHERE email_hash = $1;", email_hash)
 
+        token = create_access_token({
+            "sub": clean_username,
+            "username": clean_username,
+            "emailHash": email_hash
+        })
         return {
             "success": True,
+            "token": token,
             "user": {
                 "username": clean_username,
                 "emailHash": email_hash
@@ -191,8 +197,14 @@ async def handle_auth(req: AuthRequest):
                     detail="Credenciales incorrectas. Verifica tu usuario/correo y contraseña."
                 )
 
+        token = create_access_token({
+            "sub": user_row["username"],
+            "username": user_row["username"],
+            "emailHash": user_row["email_hash"]
+        })
         return {
             "success": True,
+            "token": token,
             "user": {
                 "username": user_row["username"],
                 "emailHash": user_row["email_hash"]

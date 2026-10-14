@@ -1,0 +1,1973 @@
+{
+  "faculties": [
+    {
+      "id": 1,
+      "name": "Facultad de Ciencias de la Computación",
+      "logo_url": "https://secreacademica.cs.buap.mx/images/logo_fcc_2_.png"
+    },
+    {
+      "id": 2,
+      "name": "Facultad Arquitectura",
+      "logo_url": "https://arquitectura.buap.mx/sites/all/themes/plantilla_1/images/logo_buap.png"
+    }
+  ],
+  "plans": [
+    {
+      "id": 1,
+      "career": "Ingeniería en Ciencias de la Computación",
+      "modalidad": "Escolarizada",
+      "faculty_id": 1,
+      "courses": [
+        {
+          "cluster": 1,
+          "content": [
+            {
+              "id": "PB",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Programación Básica",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "IS",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Ingeniería Social",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "FM",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Fundamentos de Matemáticas",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "ASA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Álgebra Superior Aplicada",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "ING1",
+              "lab": 2,
+              "theory": 2,
+              "credits": 4,
+              "subject": "Inglés I",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 2,
+          "content": [
+            {
+              "id": "PA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Programación Avanzada",
+              "required": "PB",
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "F",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Física",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "CDA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Cálculo Diferencial con Aplicaciones",
+              "required": "FM",
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "ALA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Álgebra Lineal con Aplicaciones",
+              "required": "ASA",
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "IFGU",
+              "lab": 2,
+              "theory": 1,
+              "credits": 4,
+              "subject": "Introducción a la Formación General Universitaria",
+              "required": null,
+              "autonomous": 16,
+              "position_Y": 9
+            },
+            {
+              "id": "ING2",
+              "lab": 2,
+              "theory": 2,
+              "credits": 4,
+              "subject": "Inglés II",
+              "required": "ING1",
+              "autonomous": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 3,
+          "content": [
+            {
+              "id": "EDE",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Estructuras de Datos y sus Aplicaciones",
+              "required": "PA",
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "CIA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Cálculo Integral con Aplicaciones",
+              "required": "CDA",
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "MDA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Matemáticas Discretas y sus Aplicaciones",
+              "required": [
+                "ALA",
+                "IS"
+              ],
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "CE",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Circuitos Eléctricos",
+              "required": [
+                "F",
+                "ASA"
+              ],
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "LBN",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Lenguaje de Bajo Nivel",
+              "required": "PA",
+              "autonomous": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "ING3",
+              "lab": 2,
+              "theory": 2,
+              "credits": 4,
+              "subject": "Inglés III",
+              "required": "ING2",
+              "autonomous": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 4,
+          "content": [
+            {
+              "id": "LMA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Lógica Matemática Aplicada",
+              "required": "EDE",
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "ED",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Ecuaciones Diferenciales",
+              "required": "CIA",
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "CEs",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Circuitos Electrónicos",
+              "required": "CE",
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "G",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Graficación",
+              "required": "EDE",
+              "autonomous": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "FGD",
+              "lab": 2,
+              "theory": 1,
+              "credits": 4,
+              "subject": "Formación General Disciplinaria",
+              "required": "IFGU",
+              "autonomous": 16,
+              "position_Y": 9
+            },
+            {
+              "id": "ING4",
+              "lab": 2,
+              "theory": 2,
+              "credits": 4,
+              "subject": "Inglés IV",
+              "required": "ING3",
+              "autonomous": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 5,
+          "content": [
+            {
+              "id": "ADA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Análisis y Diseño de Algoritmos",
+              "required": [
+                "LMA",
+                "G"
+              ],
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "PE",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Probabilidad y Estadística",
+              "required": "ED",
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "SO1",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Sistemas Operativos I",
+              "required": [
+                "LMA",
+                "IS"
+              ],
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "DG",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Diseño Digital",
+              "required": [
+                "MDA",
+                "CEs"
+              ],
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "FGP",
+              "lab": 2,
+              "theory": 1,
+              "credits": 4,
+              "subject": "Formación General Profesional",
+              "required": "FGD",
+              "autonomous": 0,
+              "position_Y": 9
+            }
+          ]
+        },
+        {
+          "cluster": 6,
+          "content": [
+            {
+              "id": "IS1",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Ingeniería de Software I",
+              "required": [
+                "ADA"
+              ],
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "BD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Bases de Datos",
+              "required": "ADA",
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "PCyP",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Programación Concurrente y Paralela",
+              "required": [
+                "ADA"
+              ],
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "SO2",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Sistemas Operativos II",
+              "required": "SO1",
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "AC",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Arquitectura de Computadoras",
+              "required": [
+                "LBN",
+                "DG"
+              ],
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "opt1",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Optativa I",
+              "required": "",
+              "autonomous": 0,
+              "position_Y": 9
+            },
+            {
+              "id": "optC1",
+              "lab": null,
+              "theory": null,
+              "credits": null,
+              "subject": "Optativa Complementaria I",
+              "required": "",
+              "autonomous": null,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 7,
+          "content": [
+            {
+              "id": "MD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Minería de Datos",
+              "required": [
+                "BD",
+                "PE"
+              ],
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "Control",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Control",
+              "required": [
+                "ED",
+                "SO2"
+              ],
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "MR",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Modelos de Redes",
+              "required": "PE",
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "VIS",
+              "lab": 0,
+              "theory": 0,
+              "credits": 4,
+              "subject": "Vinculación e Integración Social",
+              "required": "70%",
+              "autonomous": 0,
+              "position_Y": 7
+            },
+            {
+              "id": "GPI",
+              "lab": 2,
+              "theory": 1,
+              "credits": 5,
+              "subject": "Gestión de Proyectos Innovadores",
+              "required": "IS",
+              "autonomous": 32,
+              "position_Y": 8
+            },
+            {
+              "id": "optC2",
+              "lab": null,
+              "theory": null,
+              "credits": null,
+              "subject": "Optativa Complementaria II",
+              "required": "",
+              "autonomous": null,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 8,
+          "content": [
+            {
+              "id": "IA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Inteligencia Artificial",
+              "required": "MD",
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "PD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Progrmación Distribuida",
+              "required": [
+                "PCyP"
+              ],
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "DSW",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Desarrollo de Sistemas Web",
+              "required": "Control",
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "RC",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Requisitos de Computadoras",
+              "required": "MR",
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "SE",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Sistemas Empotrados",
+              "required": "GPI",
+              "autonomous": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "opt2",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Optativa II",
+              "required": "",
+              "autonomous": 0,
+              "position_Y": 9
+            },
+            {
+              "id": "optC3",
+              "lab": null,
+              "theory": null,
+              "credits": null,
+              "subject": "Optativa Complementaria III",
+              "required": "",
+              "autonomous": null,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 9,
+          "content": [
+            {
+              "id": "AR",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Administración de Redes",
+              "required": "RC",
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "DAM",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Desarrollo de Aplicaciones Móviles",
+              "required": "DSW",
+              "autonomous": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "PP",
+              "lab": 0,
+              "theory": 0,
+              "credits": 15,
+              "subject": "Práctica Profesional",
+              "required": "VIS",
+              "autonomous": 0,
+              "position_Y": 7
+            },
+            {
+              "id": "SHW",
+              "lab": 2,
+              "theory": 3,
+              "credits": 7,
+              "subject": "Sistemas de Hardware/Software",
+              "required": "SE",
+              "autonomous": 16,
+              "position_Y": 8
+            },
+            {
+              "id": "optC4",
+              "lab": null,
+              "theory": null,
+              "credits": null,
+              "subject": "Optativa Complementaria IV",
+              "required": "",
+              "autonomous": null,
+              "position_Y": 10
+            }
+          ]
+        }
+      ],
+      "electives": [],
+      "min_credits": 287,
+      "max_credits": 311
+    },
+    {
+      "id": 2,
+      "career": "Ingeniería en Ciencia de Datos",
+      "modalidad": "Escolarizada",
+      "faculty_id": 1,
+      "courses": [
+        {
+          "cluster": 1,
+          "content": [
+            {
+              "id": "ASA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Álgebra Superior Aplicada",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "FM",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Fundamentos de Matemáticas",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "ICD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Introducción a la Ciencia de Datos",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "PB",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Programación Básica",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "ING1",
+              "lab": 2,
+              "theory": 2,
+              "credits": 4,
+              "subject": "Inglés I",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 2,
+          "content": [
+            {
+              "id": "PA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Programación Avanzada",
+              "required": "PB",
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "EPCD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Ética para la Ciencia de Datos",
+              "required": "ICD",
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "CDA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Cálculo Diferencial con Aplicaciones",
+              "required": "FM",
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "ALA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Álgebra Lineal con Aplicaciones",
+              "required": "ASA",
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "IFGU",
+              "lab": 2,
+              "theory": 1,
+              "credits": 4,
+              "subject": "Introducción a la Formación General Universitaria",
+              "required": null,
+              "autonomous": 16,
+              "position_Y": 9
+            },
+            {
+              "id": "ING2",
+              "lab": 2,
+              "theory": 2,
+              "credits": 4,
+              "subject": "Inglés II",
+              "required": "ING1",
+              "autonomous": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 3,
+          "content": [
+            {
+              "id": "EDA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Estructuras de Datos y sus Aplicaciones",
+              "required": "PA",
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "CIA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Cálculo Integral con Aplicaciones",
+              "required": "CDA",
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "MDA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 1,
+              "subject": "Matemáticas Discretas y sus Aplicaciones",
+              "required": [
+                "ALA"
+              ],
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "LMA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Lógica Matemática Aplicada",
+              "required": [
+                "FM"
+              ],
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "FGD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Formación General Disciplinaria",
+              "required": "IFGU",
+              "autonomous": 0,
+              "position_Y": 9
+            },
+            {
+              "id": "ING3",
+              "lab": 2,
+              "theory": 2,
+              "credits": 4,
+              "subject": "Inglés III",
+              "required": "ING2",
+              "autonomous": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 4,
+          "content": [
+            {
+              "id": "PE",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Probabilidad y Estadística",
+              "required": "CIA",
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "ED",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Ecuaciones Diferenciales",
+              "required": "CIA",
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "LFA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Lenguajes Formales y Autómatas",
+              "required": "LMA",
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "BD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Bases de Datos",
+              "required": "EDA",
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "IS",
+              "lab": 3,
+              "theory": 2,
+              "credits": 6,
+              "subject": "Ingeniería de Software I",
+              "required": "EPCD",
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "ING4",
+              "lab": 2,
+              "theory": 2,
+              "credits": 4,
+              "subject": "Inglés IV",
+              "required": "ING3",
+              "autonomous": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 5,
+          "content": [
+            {
+              "id": "ECD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Estadistica para Ciencia de Datos",
+              "required": [
+                "PE"
+              ],
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "SO1",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Sistemas Operativos I",
+              "required": [
+                "EDA",
+                "LFA"
+              ],
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "ADA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Analisis y Diseño de Algoritmos",
+              "required": "EDA",
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "BDA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Bases de Datos Avanzadas",
+              "required": [
+                "BD"
+              ],
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "DAW",
+              "lab": 2,
+              "theory": 1,
+              "credits": 4,
+              "subject": "Desarrollo de Aplicaciones Web",
+              "required": "BD",
+              "autonomous": 0,
+              "position_Y": 5
+            }
+          ]
+        },
+        {
+          "cluster": 6,
+          "content": [
+            {
+              "id": "EAPCD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Estadistica Avanzada para Ciencia de Datos",
+              "required": [
+                "EDA"
+              ],
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "MD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Minería de Datos",
+              "required": [
+                "BDA",
+                "ED"
+              ],
+              "autonomous": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "SW",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Servicios Web",
+              "required": [
+                "DAW"
+              ],
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "AA",
+              "lab": 2,
+              "theory": 3,
+              "credits": 7,
+              "subject": "Aprendizaje Automatico",
+              "required": [
+                "ECD",
+                "ADA"
+              ],
+              "autonomous": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "PM",
+              "lab": 2,
+              "theory": 3,
+              "credits": 7,
+              "subject": "Procesamiento Multimodal",
+              "required": [
+                "SO1"
+              ],
+              "autonomous": 0,
+              "position_Y": 7
+            },
+            {
+              "id": "FGP",
+              "lab": 2,
+              "theory": 1,
+              "credits": 4,
+              "subject": "Formación General Profesional",
+              "required": "",
+              "autonomous": 16,
+              "position_Y": 9
+            },
+            {
+              "id": "optC1",
+              "lab": null,
+              "theory": null,
+              "credits": null,
+              "subject": "Optativa Complementaria I",
+              "required": "",
+              "autonomous": null,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 7,
+          "content": [
+            {
+              "id": "MS",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Modelado y Simulacion",
+              "required": [
+                "EAPCD"
+              ],
+              "autonomous": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "PPD",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Progrmación Paralela y Distribuida",
+              "required": [
+                "SO1"
+              ],
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "PLN",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Procesamiento de Lenguaje Natural",
+              "required": "AA",
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "WS",
+              "lab": 3,
+              "theory": 2,
+              "credits": 6,
+              "subject": "Web Semantica",
+              "required": "SW",
+              "autonomous": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "VI",
+              "lab": 3,
+              "theory": 2,
+              "credits": 7,
+              "subject": "Visualizacion de la Informacion",
+              "required": "MD",
+              "autonomous": 16,
+              "position_Y": 7
+            },
+            {
+              "id": "opt1",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Optativa I",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 9
+            },
+            {
+              "id": "optC2",
+              "lab": null,
+              "theory": null,
+              "credits": null,
+              "subject": "Optativa Complementaria II",
+              "required": "",
+              "autonomous": null,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 8,
+          "content": [
+            {
+              "id": "TTO",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Teoría y Técnicas de Optimización",
+              "required": "PPD",
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "RN",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Redes Neuronales",
+              "required": [
+                "PLN"
+              ],
+              "autonomous": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "VIS",
+              "lab": 0,
+              "theory": 0,
+              "credits": 4,
+              "subject": "Vinculación e Integración Social",
+              "required": "70%",
+              "autonomous": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "GPI",
+              "lab": 2,
+              "theory": 3,
+              "credits": 5,
+              "subject": "Gestión de Proyectos Innovadores",
+              "required": "FGP",
+              "autonomous": 32,
+              "position_Y": 7
+            },
+            {
+              "id": "CN",
+              "lab": 2,
+              "theory": 3,
+              "credits": 7,
+              "subject": "Cómputo en la Nube",
+              "required": "GPI",
+              "autonomous": 16,
+              "position_Y": 8
+            },
+            {
+              "id": "optC3",
+              "lab": null,
+              "theory": null,
+              "credits": null,
+              "subject": "Optativa Complementaria III",
+              "required": "",
+              "autonomous": null,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 9,
+          "content": [
+            {
+              "id": "OM",
+              "lab": 2,
+              "theory": 3,
+              "credits": 6,
+              "subject": "Optimización Multiobjeto",
+              "required": "TTO",
+              "autonomous": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "PP",
+              "lab": 0,
+              "theory": 0,
+              "credits": 15,
+              "subject": "Práctica Profesional",
+              "required": "VIS",
+              "autonomous": 0,
+              "position_Y": 7
+            },
+            {
+              "id": "CDA2",
+              "lab": 3,
+              "theory": 2,
+              "credits": 7,
+              "subject": "Ciencia de Datos Aplicada",
+              "required": "CDA",
+              "autonomous": 16,
+              "position_Y": 8
+            },
+            {
+              "id": "opt2",
+              "lab": 3,
+              "theory": 2,
+              "credits": 6,
+              "subject": "Optativa 2",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "opt3",
+              "lab": 3,
+              "theory": 2,
+              "credits": 6,
+              "subject": "Optativa 3",
+              "required": null,
+              "autonomous": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "optC4",
+              "lab": null,
+              "theory": null,
+              "credits": null,
+              "subject": "Optativa Complementaria IV",
+              "required": "",
+              "autonomous": null,
+              "position_Y": 10
+            }
+          ]
+        }
+      ],
+      "electives": [],
+      "min_credits": 297,
+      "max_credits": 321
+    },
+    {
+      "id": 3,
+      "career": "Licenciatura en Arquitectura",
+      "modalidad": "Escolarizada",
+      "faculty_id": 2,
+      "courses": [
+        {
+          "cluster": 1,
+          "content": [
+            {
+              "id": "LE1",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Lengua Extranjera I",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "MAA1",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Matematicas Aplicadas a la Arquitectura I",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "D1",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Dibujo I",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "GD",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Geometría Descriptiva",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 7
+            },
+            {
+              "id": "THA",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Teoría e Historia de la Arquitectura",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "IPA",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Investigación para la Arquitectura",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 9
+            },
+            {
+              "id": "TDB",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Taller de Diseño Básico",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 2,
+          "content": [
+            {
+              "id": "FHS",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Formación Humana y Social",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "LE2",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Lengua Extranjera II",
+              "required": "LE1",
+              "autonomus": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "II",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Introducción a las Instalaciones",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "MAA2",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Matematicas Aplicadas a la Arquitectura II",
+              "required": "MAA1",
+              "autonomus": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "PBT",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Principios Básicos de la Topografía",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "D2",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Dibujo II",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "MEP",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Metodos y Estrategías Proyectuales",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 7
+            },
+            {
+              "id": "ADMA",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Arquitectura y Desarrollo Medio Ambiental",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "TDI1",
+              "lab": "?",
+              "theory": "?",
+              "credits": 7,
+              "subject": "Taller de Diseño Integral I",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 3,
+          "content": [
+            {
+              "id": "DHPC",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Desarrollo de Habilidades Del Pensamiento Complejo",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 1
+            },
+            {
+              "id": "LE3",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Lengua Extranjera III",
+              "required": "LE2",
+              "autonomus": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "IH",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Instalaciones Hidrosanitarias",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "BEMM",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Bases de Estática y Mecánica de Materiales",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "CBC",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Conceptos Básicos de Construcción",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "RD2D",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Representación Digital 2D",
+              "required": "D2",
+              "autonomus": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "DB",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Diseño Bioclimático",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 7
+            },
+            {
+              "id": "AA",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Arquitectura de la Antiguedad",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "TDI2",
+              "lab": "?",
+              "theory": "?",
+              "credits": 7,
+              "subject": "Taller de Diseño Integral II",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 4,
+          "content": [
+            {
+              "id": "LE4",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Lengua Extranjera IV",
+              "required": "LE3",
+              "autonomus": 0,
+              "position_Y": 2
+            },
+            {
+              "id": "IIE",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Iluminación e Instalaciones Electricas",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "DPCR",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Diseño Practico del Concreto Reforzado",
+              "required": "BEMM",
+              "autonomus": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "SCT",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Sistemas Constructicos Tradicionales",
+              "required": "CBC",
+              "autonomus": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "RD3D",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Representación Digital 3D",
+              "required": "RD2D",
+              "autonomus": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "CDUA",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Criterios de Diseño Urbano Arquitectonicos",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 7
+            },
+            {
+              "id": "AAA",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Arquitectura de América Antigua",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "CA",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Critica de la Arquitectura",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 9
+            },
+            {
+              "id": "TDI3",
+              "lab": "?",
+              "theory": "?",
+              "credits": 7,
+              "subject": "Taller de Diseño Integral III",
+              "required": "TDI2",
+              "autonomus": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 5,
+          "content": [
+            {
+              "id": "IE",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Instalaciones Especiales",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "CDS",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Configuración y Diseño Sísmico",
+              "required": "DPCR",
+              "autonomus": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "SCE",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Sistemas Constructicos Evolucionados",
+              "required": "SCT",
+              "autonomus": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "HDPP",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Herramientas Digitales de Post Producción",
+              "required": "RD3D",
+              "autonomus": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "AOE",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Arquitectura de Occiodental Europea",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "TDI4",
+              "lab": "?",
+              "theory": "?",
+              "credits": 7,
+              "subject": "Taller de Diseño Integral IV",
+              "required": "TDI3",
+              "autonomus": 0,
+              "position_Y": 10
+            }
+          ]
+        },
+        {
+          "cluster": 6,
+          "content": [
+            {
+              "id": "IUA",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Instalaciones Urbano Arquitectonicas",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 3
+            },
+            {
+              "id": "CDE",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Configuración y Diseño Eolico",
+              "required": "CDS",
+              "autonomus": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "SCMP",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Sistemas Constructicos Mixtos y Prefabricados",
+              "required": "SCE",
+              "autonomus": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "PE",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Proyecto Ejecutivo",
+              "required": "HDPP",
+              "autonomus": 0,
+              "position_Y": 6
+            },
+            {
+              "id": "AV",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Arquitectura Virreinal",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 7
+            },
+            {
+              "id": "TDI5",
+              "lab": "?",
+              "theory": "?",
+              "credits": 7,
+              "subject": "Taller de Diseño Integral V",
+              "required": "TDI4",
+              "autonomus": 0,
+              "position_Y": 10
+            },
+            {
+              "id": "OPT1",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Optativa I",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 13
+            }
+          ]
+        },
+        {
+          "cluster": 7,
+          "content": [
+            {
+              "id": "CE",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Configuraciones Especiales",
+              "required": "CDE",
+              "autonomus": 0,
+              "position_Y": 4
+            },
+            {
+              "id": "AEC",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Administración de Empresas Constructoras I",
+              "required": "SCMP",
+              "autonomus": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "AM",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Arquitectura Moderna",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "MI",
+              "lab": "?",
+              "theory": "?",
+              "credits": 4,
+              "subject": "Metodología de la Investigación",
+              "required": "TDI5",
+              "autonomus": 0,
+              "position_Y": 9
+            },
+            {
+              "id": "TDI6",
+              "lab": "?",
+              "theory": "?",
+              "credits": 7,
+              "subject": "Taller de Diseño Integral VI",
+              "required": "TDI5",
+              "autonomus": 0,
+              "position_Y": 10
+            },
+            {
+              "id": "AP",
+              "lab": "?",
+              "theory": "?",
+              "credits": 5,
+              "subject": "Administración de Proyectos",
+              "required": [
+                "LE4",
+                "IIE",
+                "DPCR",
+                "SCT",
+                "RD3D",
+                "CDUA",
+                "AAA",
+                "CA",
+                "TDI3"
+              ],
+              "autonomus": 0,
+              "position_Y": 11
+            },
+            {
+              "id": "OPT2",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Optativa II",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 13
+            },
+            {
+              "id": "OD",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Optativa DESIT I",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 14
+            }
+          ]
+        },
+        {
+          "cluster": 8,
+          "content": [
+            {
+              "id": "AEC2",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Administración de Empresas Constructoras II",
+              "required": "AEC",
+              "autonomus": 0,
+              "position_Y": 5
+            },
+            {
+              "id": "AC",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Arquitectura Contemporánea",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 8
+            },
+            {
+              "id": "PID",
+              "lab": "?",
+              "theory": "?",
+              "credits": 5,
+              "subject": "Proyectos I + D (I)",
+              "required": "AP",
+              "autonomus": 0,
+              "position_Y": 11
+            },
+            {
+              "id": "SS",
+              "lab": "?",
+              "theory": "?",
+              "credits": 10,
+              "subject": "Servicio Social",
+              "required": "70%",
+              "autonomus": 0,
+              "position_Y": 12
+            },
+            {
+              "id": "OPT3",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Optativa III",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 13
+            },
+            {
+              "id": "OD2",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Optativa DESIT II",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 14
+            }
+          ]
+        },
+        {
+          "cluster": 9,
+          "content": [
+            {
+              "id": "PID2",
+              "lab": "?",
+              "theory": "?",
+              "credits": 7,
+              "subject": "Proyectos I + D (II)",
+              "required": [
+                "PID",
+                "MI",
+                "TDI6",
+                "AP"
+              ],
+              "autonomus": 0,
+              "position_Y": 10
+            },
+            {
+              "id": "OD3",
+              "lab": "?",
+              "theory": "?",
+              "credits": 3,
+              "subject": "Optativa DESIT III",
+              "required": null,
+              "autonomus": 0,
+              "position_Y": 14
+            }
+          ]
+        },
+        {
+          "cluster": 10,
+          "content": [
+            {
+              "id": "PP",
+              "lab": "?",
+              "theory": "?",
+              "credits": 5,
+              "subject": "Prácticas Profesionales",
+              "required": "80%",
+              "autonomus": 0,
+              "position_Y": 12
+            }
+          ]
+        }
+      ],
+      "electives": [],
+      "min_credits": 249,
+      "max_credits": 264
+    }
+  ]
+}

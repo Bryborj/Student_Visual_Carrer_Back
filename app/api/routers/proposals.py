@@ -2,9 +2,10 @@ import json
 import uuid
 from datetime import datetime, timedelta, timezone
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Header, HTTPException, Query
 from pydantic import BaseModel
 
+from app.api.deps import resolve_authenticated_user
 from app.config import settings
 from app.database import db
 from app.services.voting_service import VotingService
@@ -14,8 +15,8 @@ router = APIRouter(prefix="/proposals", tags=["Proposals"])
 class CreateProposalRequest(BaseModel):
     career: str
     modalidad: str = "Escolarizada"
-    username: str
-    emailHash: str
+    username: str | None = None
+    emailHash: str | None = None
     reason: str
     courses: list
     electives: list = []
@@ -23,8 +24,8 @@ class CreateProposalRequest(BaseModel):
     max_credits: int | None = None
 
 class VoteRequest(BaseModel):
-    username: str
-    emailHash: str
+    username: str | None = None
+    emailHash: str | None = None
     voteType: str = "for"  # 'for' o 'against'
 
 def format_proposal(row: dict, user_vote: str | None = None) -> dict:
@@ -57,10 +58,17 @@ def format_proposal(row: dict, user_vote: str | None = None) -> dict:
     }
 
 @router.post("")
-async def create_proposal(req: CreateProposalRequest):
+async def create_proposal(
+    req: CreateProposalRequest,
+    authorization: str | None = Header(None)
+):
     """Permite a un alumno registrado proponer una actualización a un plan de estudios."""
     if not db.pool:
         raise HTTPException(status_code=500, detail="Database not connected.")
+
+    user = await resolve_authenticated_user(authorization, req.username, req.emailHash)
+    author_username = user["username"]
+    author_email_hash = user["emailHash"]
 
     if not req.reason.strip():
         raise HTTPException(status_code=400, detail="La justificación o motivo del cambio es obligatoria.")
@@ -69,14 +77,6 @@ async def create_proposal(req: CreateProposalRequest):
         raise HTTPException(status_code=400, detail="El plan propuesto debe incluir las materias.")
 
     async with db.pool.acquire() as conn:
-        # Verificar que el usuario existe
-        user = await conn.fetchrow(
-            "SELECT id FROM forum_users WHERE LOWER(username) = LOWER($1) AND email_hash = $2;",
-            req.username.strip(), req.emailHash
-        )
-        if not user:
-            raise HTTPException(status_code=401, detail="Debes estar registrado como alumno institucional para proponer cambios.")
-
         proposal_id = str(uuid.uuid4())[:8]
         voting_ends_at = datetime.now(timezone.utc) + timedelta(days=settings.VOTE_WINDOW_DAYS)
 
@@ -93,14 +93,14 @@ async def create_proposal(req: CreateProposalRequest):
                 $7::jsonb, $8::jsonb, $9, $10,
                 'voting', 1, 0, $11, NOW()
             );
-        """, proposal_id, req.career, req.modalidad, req.username, req.emailHash, req.reason,
+        """, proposal_id, req.career, req.modalidad, author_username, author_email_hash, req.reason,
              courses_json, electives_json, req.min_credits, req.max_credits, voting_ends_at)
 
         # Registrar el voto inicial a favor del autor
         await conn.execute("""
             INSERT INTO plan_proposal_votes (proposal_id, voter_email_hash, voter_username, vote_type, created_at)
             VALUES ($1, $2, $3, 'for', NOW());
-        """, proposal_id, req.emailHash, req.username)
+        """, proposal_id, author_email_hash, author_username)
 
         row = await conn.fetchrow("SELECT * FROM plan_proposals WHERE id = $1;", proposal_id)
         return {"success": True, "proposal": format_proposal(dict(row), user_vote="for")}
@@ -166,24 +166,23 @@ async def get_proposal(proposal_id: str, user_email_hash: str | None = Query(Non
         return format_proposal(dict(row), user_vote=user_vote)
 
 @router.post("/{proposal_id}/vote")
-async def vote_proposal(proposal_id: str, req: VoteRequest):
+async def vote_proposal(
+    proposal_id: str,
+    req: VoteRequest,
+    authorization: str | None = Header(None)
+):
     """Permite a un alumno registrado emitir su voto a favor o en contra de una propuesta."""
     if not db.pool:
         raise HTTPException(status_code=500, detail="Database not connected.")
 
-    async with db.pool.acquire() as conn:
-        # Verificar usuario registrado
-        user = await conn.fetchrow(
-            "SELECT id FROM forum_users WHERE LOWER(username) = LOWER($1) AND email_hash = $2;",
-            req.username.strip(), req.emailHash
-        )
-        if not user:
-            raise HTTPException(status_code=401, detail="Debes ser un alumno registrado para votar.")
+    user = await resolve_authenticated_user(authorization, req.username, req.emailHash)
+    voter_username = user["username"]
+    voter_email_hash = user["emailHash"]
 
     result = await VotingService.cast_vote(
         proposal_id=proposal_id,
-        voter_username=req.username.strip(),
-        voter_email_hash=req.emailHash,
+        voter_username=voter_username,
+        voter_email_hash=voter_email_hash,
         vote_type=req.voteType
     )
 

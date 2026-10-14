@@ -2,9 +2,10 @@ import json
 import uuid
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Header, HTTPException, Query
 from pydantic import BaseModel
 
+from app.api.deps import resolve_authenticated_user
 from app.database import db
 
 router = APIRouter(tags=["Forum"])
@@ -71,13 +72,18 @@ async def get_forum_posts(
         return [format_post(dict(r)) for r in rows]
 
 @router.post("/forum")
-async def handle_forum_action(req: ForumActionRequest):
+async def handle_forum_action(
+    req: ForumActionRequest,
+    authorization: str | None = Header(None)
+):
     """Maneja acciones del foro: create_post, like_post, add_comment."""
     if not db.pool:
         raise HTTPException(status_code=500, detail="Database not connected.")
 
-    if not req.username or not req.emailHash:
-        raise HTTPException(status_code=401, detail="Debes iniciar sesión en el foro para participar.")
+    # Resolver identidad autenticada vía JWT o modo legado verificado en BD
+    user = await resolve_authenticated_user(authorization, req.username, req.emailHash)
+    author_username = user["username"]
+    author_email_hash = user["emailHash"]
 
     action = req.action
 
@@ -98,7 +104,7 @@ async def handle_forum_action(req: ForumActionRequest):
                     $1, $2, $3, $4, $5, $6, $7,
                     0, '[]'::jsonb, '[]'::jsonb, NOW()
                 ) RETURNING *;
-            """, new_id, req.title, req.content, req.category, career, req.username, req.emailHash)
+            """, new_id, req.title, req.content, req.category, career, author_username, author_email_hash)
 
             return format_post(dict(row))
 
@@ -116,12 +122,12 @@ async def handle_forum_action(req: ForumActionRequest):
             if isinstance(liked_by, str):
                 liked_by = json.loads(liked_by)
 
-            has_liked = req.emailHash in liked_by
+            has_liked = author_email_hash in liked_by
             if has_liked:
-                updated_liked_by = [e for e in liked_by if e != req.emailHash]
+                updated_liked_by = [e for e in liked_by if e != author_email_hash]
                 likes_delta = -1
             else:
-                updated_liked_by = [*liked_by, req.emailHash]
+                updated_liked_by = [*liked_by, author_email_hash]
                 likes_delta = 1
 
             upd_row = await conn.fetchrow("""
@@ -141,8 +147,8 @@ async def handle_forum_action(req: ForumActionRequest):
 
             new_comment = {
                 "id": str(uuid.uuid4()),
-                "author": req.username,
-                "emailHash": req.emailHash,
+                "author": author_username,
+                "emailHash": author_email_hash,
                 "content": req.commentContent,
                 "createdAt": datetime.now(timezone.utc).isoformat()
             }

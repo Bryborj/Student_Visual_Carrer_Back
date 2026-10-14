@@ -86,8 +86,15 @@ async def register_user(client: AsyncClient, username: str, email: str | None = 
         json={"action": "register", "email": email, "pin": pin, "username": username, "password": password},
     )
     assert res.status_code == 200, res.text
-    user = res.json()["user"]
-    return {"username": user["username"], "emailHash": user["emailHash"], "email": email, "password": password}
+    data = res.json()
+    user = data["user"]
+    return {
+        "username": user["username"],
+        "emailHash": user["emailHash"],
+        "email": email,
+        "password": password,
+        "token": data.get("token"),
+    }
 
 
 SAMPLE_COURSES = [{"id": "C1", "name": "Programación", "credits": 8, "semester": 1}]

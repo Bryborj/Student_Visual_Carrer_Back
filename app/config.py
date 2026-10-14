@@ -14,11 +14,16 @@ class Settings(BaseSettings):
     POSTGRES: str | None = None  # Soporte legado para la variable usada en el proyecto original
 
     # Security & Admin
-    # En producción (DEV_MODE=false) ADMIN_PASSWORD es obligatoria; en desarrollo se usa "admin-dev".
+    # En producción (DEV_MODE=false) ADMIN_PASSWORD y JWT_SECRET son obligatorias; en desarrollo se usan valores seguros locales.
     ADMIN_PASSWORD: str | None = None
     ADMIN_NOTIFICATION_EMAIL: str = "community@forobuap.zrootsh.com"
     DISABLE_DEV_PIN: bool = False
     DEV_MODE: bool = False
+
+    # JWT Authentication
+    JWT_SECRET: str | None = None
+    JWT_ALGORITHM: str = "HS256"
+    JWT_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 días de validez
 
     # CORS: orígenes permitidos separados por comas
     CORS_ORIGINS: str = "http://localhost:5400,http://localhost:5173"
@@ -42,7 +47,7 @@ class Settings(BaseSettings):
     AUTO_APPROVE_RATIO: float = 0.51  # Más del 50% de los usuarios registrados
 
     @model_validator(mode="after")
-    def _validate_admin_password(self) -> "Settings":
+    def _validate_secrets(self) -> "Settings":
         if not self.ADMIN_PASSWORD:
             if not self.DEV_MODE:
                 raise ValueError(
@@ -50,6 +55,15 @@ class Settings(BaseSettings):
                     "Defínela en el entorno o en .env."
                 )
             self.ADMIN_PASSWORD = "admin-dev"
+
+        if not self.JWT_SECRET:
+            if not self.DEV_MODE:
+                raise ValueError(
+                    "JWT_SECRET es obligatoria cuando DEV_MODE=false. "
+                    "Defínela en el entorno o en .env."
+                )
+            self.JWT_SECRET = "dev-jwt-secret-key-buap-visual-carrer-local-dev-only"
+
         return self
 
     @property
@@ -68,5 +82,6 @@ class Settings(BaseSettings):
         if clean.startswith("postgres://"):
             clean = clean.replace("postgres://", "postgresql://", 1)
         return clean
+
 
 settings = Settings()

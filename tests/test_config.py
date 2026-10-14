@@ -3,7 +3,7 @@ from pydantic import ValidationError
 
 from app.config import Settings
 
-ENV_KEYS = ("DATABASE_URL", "POSTGRES", "ADMIN_PASSWORD", "DEV_MODE", "CORS_ORIGINS")
+ENV_KEYS = ("DATABASE_URL", "POSTGRES", "ADMIN_PASSWORD", "DEV_MODE", "CORS_ORIGINS", "JWT_SECRET")
 
 
 @pytest.fixture(autouse=True)
@@ -29,14 +29,24 @@ def test_legacy_postgres_used_only_when_database_url_not_set(monkeypatch):
     assert make().get_database_url() == "postgresql://u:p@remote:2001/prod"
 
 
-def test_admin_password_required_outside_dev_mode():
-    with pytest.raises(ValidationError):
+def test_admin_password_and_jwt_secret_required_outside_dev_mode():
+    with pytest.raises(ValidationError) as exc:
         make(DEV_MODE=False)
+    assert "ADMIN_PASSWORD" in str(exc.value)
+
+    with pytest.raises(ValidationError) as exc:
+        make(DEV_MODE=False, ADMIN_PASSWORD="admin")
+    assert "JWT_SECRET" in str(exc.value)
 
 
-def test_admin_password_defaults_in_dev_mode_and_explicit_wins():
-    assert make(DEV_MODE=True).ADMIN_PASSWORD == "admin-dev"
-    assert make(DEV_MODE=False, ADMIN_PASSWORD="s3cret").ADMIN_PASSWORD == "s3cret"
+def test_admin_password_and_jwt_secret_defaults_in_dev_mode_and_explicit_wins():
+    dev_settings = make(DEV_MODE=True)
+    assert dev_settings.ADMIN_PASSWORD == "admin-dev"
+    assert "dev-jwt" in dev_settings.JWT_SECRET
+
+    prod_settings = make(DEV_MODE=False, ADMIN_PASSWORD="s3cret", JWT_SECRET="jwt-prod-secret")
+    assert prod_settings.ADMIN_PASSWORD == "s3cret"
+    assert prod_settings.JWT_SECRET == "jwt-prod-secret"
 
 
 def test_cors_origins_parsed_from_comma_separated_list():
