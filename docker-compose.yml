@@ -6,24 +6,32 @@ services:
     container_name: student_visual_backend
     restart: unless-stopped
     ports:
-      - "${BACKEND_PORT:-8001}:8001"
+      - "${PORT:-${BACKEND_PORT:-8001}}:8001"
     volumes:
       - ./app:/app/app:z
+    env_file:
+      - path: .env
+        required: false
+      - path: .env.prod
+        required: false
     environment:
-      # La BD de desarrollo SIEMPRE es el servicio postgres local (nunca la BD remota).
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword}@postgres:5432/${POSTGRES_DB:-forobuap_dev}
-      - DEV_MODE=${DEV_MODE:-true}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin-dev}
+      - DATABASE_URL=${DATABASE_URL:-${POSTGRES:-}}
+      - DEV_MODE=${DEV_MODE:-false}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
       - ADMIN_NOTIFICATION_EMAIL=${ADMIN_NOTIFICATION_EMAIL:-community@forobuap.zrootsh.com}
       - RESEND_API_KEY=${RESEND_API_KEY:-}
       - RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-community@forobuap.zrootsh.com}
       - RESEND_FROM_NAME=${RESEND_FROM_NAME:-Foro Comunidad BUAP 🐺}
-      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-key-buap-visual-carrer-local-dev-only}
-      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:5400,http://localhost:5173}
+      - JWT_SECRET=${JWT_SECRET:-}
+      - CORS_ORIGINS=${CORS_ORIGINS:-}
+      - DISABLE_DEV_PIN=${DISABLE_DEV_PIN:-true}
+      - emailVerifierURL=${emailVerifierURL:-https://api.hunter.io/v2/email-verifier}
+      - emailVerifierKey=${emailVerifierKey:-}
+      - PORT=${PORT:-8001}
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://localhost:8001/api/health"]
       interval: 60s
       timeout: 5s
       retries: 3
       start_period: 15s
-    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001"]

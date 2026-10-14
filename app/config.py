@@ -4,13 +4,13 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=(".env.local", ".env"),
+        env_file=(".env.local", ".env.prod", ".env"),
         env_file_encoding="utf-8",
         extra="ignore"
     )
 
     # Database
-    DATABASE_URL: str = "postgresql://postgres:devpassword@localhost:5433/forobuap_dev"
+    DATABASE_URL: str | None = None
     POSTGRES: str | None = None  # Soporte legado para la variable usada en el proyecto original
 
     # Security & Admin
@@ -71,17 +71,23 @@ class Settings(BaseSettings):
         return [o.strip() for o in self.CORS_ORIGINS.split(",") if o.strip()]
 
     def get_database_url(self) -> str:
-        # Prioridad: DATABASE_URL definida explícitamente > POSTGRES (legado) > valor por defecto local.
-        if "DATABASE_URL" in self.model_fields_set:
-            raw = self.DATABASE_URL
-        else:
-            raw = self.POSTGRES or self.DATABASE_URL
-        # Limpiar comillas accidentales
-        clean = raw.strip().strip("'\"")
+        # Prioridad: DATABASE_URL (no vacía) > POSTGRES (legado, no vacía) > fallback según entorno.
+        raw = (self.DATABASE_URL or "").strip().strip("'\"")
+        if not raw and self.POSTGRES:
+            raw = self.POSTGRES.strip().strip("'\"")
+
+        if not raw:
+            if not self.DEV_MODE:
+                raise ValueError(
+                    "DATABASE_URL (o POSTGRES) es obligatoria cuando DEV_MODE=false. "
+                    "Defínela en tus variables de entorno o archivo .env / .env.prod."
+                )
+            raw = "postgresql://postgres:devpassword@localhost:5433/forobuap_dev"
+
         # Asegurar protocolo postgresql://
-        if clean.startswith("postgres://"):
-            clean = clean.replace("postgres://", "postgresql://", 1)
-        return clean
+        if raw.startswith("postgres://"):
+            raw = raw.replace("postgres://", "postgresql://", 1)
+        return raw
 
 
 settings = Settings()

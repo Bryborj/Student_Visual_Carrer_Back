@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 from pathlib import Path
 
 import asyncpg
@@ -13,7 +14,8 @@ class Database:
 
     async def connect(self):
         db_url = settings.get_database_url()
-        logger.info("Connecting to database...")
+        masked_url = re.sub(r"://([^:]+):([^@]+)@", r"://\1:***@", db_url)
+        logger.info(f"Connecting to database at {masked_url}...")
         self.pool = await asyncpg.create_pool(
             dsn=db_url,
             min_size=2,

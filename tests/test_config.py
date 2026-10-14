@@ -29,6 +29,25 @@ def test_legacy_postgres_used_only_when_database_url_not_set(monkeypatch):
     assert make().get_database_url() == "postgresql://u:p@remote:2001/prod"
 
 
+def test_empty_database_url_falls_back_to_postgres(monkeypatch):
+    monkeypatch.setenv("DEV_MODE", "true")
+    monkeypatch.setenv("DATABASE_URL", "")
+    monkeypatch.setenv("POSTGRES", "postgresql://u:p@remote:2001/prod")
+    assert make().get_database_url() == "postgresql://u:p@remote:2001/prod"
+
+
+def test_database_url_required_in_production():
+    s = make(DEV_MODE=False, ADMIN_PASSWORD="pwd", JWT_SECRET="jwt")
+    with pytest.raises(ValueError) as exc:
+        s.get_database_url()
+    assert "DATABASE_URL" in str(exc.value)
+
+
+def test_database_url_dev_mode_fallback_when_unset():
+    s = make(DEV_MODE=True)
+    assert s.get_database_url() == "postgresql://postgres:devpassword@localhost:5433/forobuap_dev"
+
+
 def test_admin_password_and_jwt_secret_required_outside_dev_mode():
     with pytest.raises(ValidationError) as exc:
         make(DEV_MODE=False)
