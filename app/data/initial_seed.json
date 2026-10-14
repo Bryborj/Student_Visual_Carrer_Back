@@ -15,7 +15,6 @@
     {
       "id": 1,
       "career": "Ingeniería en Ciencias de la Computación",
-      "modalidad": "Escolarizada",
       "faculty_id": 1,
       "courses": [
         {
@@ -631,7 +630,6 @@
     {
       "id": 2,
       "career": "Ingeniería en Ciencia de Datos",
-      "modalidad": "Escolarizada",
       "faculty_id": 1,
       "courses": [
         {
@@ -1256,7 +1254,6 @@
     {
       "id": 3,
       "career": "Licenciatura en Arquitectura",
-      "modalidad": "Escolarizada",
       "faculty_id": 2,
       "courses": [
         {

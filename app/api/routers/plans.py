@@ -17,18 +17,17 @@ async def get_plans_list():
             SELECT 
                 p.id AS "_id",
                 p.career,
-                p.modalidad,
                 f.name AS faculty,
                 f.logo_url
             FROM plans p
-            LEFT JOIN faculties f ON p.faculty_id = f.id;
+            LEFT JOIN faculties f ON p.faculty_id = f.id
+            ORDER BY p.career ASC;
         """)
 
         return [
             {
                 "_id": str(r["_id"]) if r["_id"] else None,
                 "career": r["career"],
-                "modalidad": r["modalidad"],
                 "faculty": r["faculty"],
                 "logo_url": r["logo_url"]
             }
@@ -37,8 +36,7 @@ async def get_plans_list():
 
 @router.get("/plan")
 async def get_plan(
-    career: str = Query("Ingeniería en Ciencias de la Computación"),
-    modalidad: str | None = Query(None)
+    career: str = Query("Ingeniería en Ciencias de la Computación")
 ):
     """Retorna la información y cursos detallados de un plan de estudios específico."""
     if not db.pool:
@@ -49,7 +47,6 @@ async def get_plan(
             SELECT 
                 p.id AS "_id",
                 p.career,
-                p.modalidad,
                 p.courses,
                 p.electives,
                 p.min_credits,
@@ -59,16 +56,9 @@ async def get_plan(
             FROM plans p
             LEFT JOIN faculties f ON p.faculty_id = f.id
             WHERE p.career = $1
+            LIMIT 1;
         """
-        params = [career]
-
-        if modalidad:
-            query += " AND p.modalidad = $2"
-            params.append(modalidad)
-
-        query += " LIMIT 1;"
-
-        row = await conn.fetchrow(query, *params)
+        row = await conn.fetchrow(query, career)
         if not row:
             raise HTTPException(status_code=404, detail="Plan not found")
 
@@ -82,3 +72,4 @@ async def get_plan(
             plan["electives"] = json.loads(plan["electives"])
 
         return plan
+

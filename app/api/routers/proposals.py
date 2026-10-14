@@ -14,7 +14,6 @@ router = APIRouter(prefix="/proposals", tags=["Proposals"])
 
 class CreateProposalRequest(BaseModel):
     career: str
-    modalidad: str = "Escolarizada"
     username: str | None = None
     emailHash: str | None = None
     reason: str
@@ -39,7 +38,6 @@ def format_proposal(row: dict, user_vote: str | None = None) -> dict:
     return {
         "id": row["id"],
         "career": row["career"],
-        "modalidad": row["modalidad"],
         "author": row["author_username"],
         "emailHash": row["author_email_hash"],
         "reason": row["reason"],
@@ -85,15 +83,15 @@ async def create_proposal(
 
         await conn.execute("""
             INSERT INTO plan_proposals (
-                id, career, modalidad, author_username, author_email_hash, reason,
+                id, career, author_username, author_email_hash, reason,
                 proposed_courses, proposed_electives, min_credits, max_credits,
                 status, votes_for, votes_against, voting_ends_at, created_at
             ) VALUES (
-                $1, $2, $3, $4, $5, $6,
-                $7::jsonb, $8::jsonb, $9, $10,
-                'voting', 1, 0, $11, NOW()
+                $1, $2, $3, $4, $5,
+                $6::jsonb, $7::jsonb, $8, $9,
+                'voting', 1, 0, $10, NOW()
             );
-        """, proposal_id, req.career, req.modalidad, author_username, author_email_hash, req.reason,
+        """, proposal_id, req.career, author_username, author_email_hash, req.reason,
              courses_json, electives_json, req.min_credits, req.max_credits, voting_ends_at)
 
         # Registrar el voto inicial a favor del autor

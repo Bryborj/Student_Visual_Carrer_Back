@@ -6,7 +6,6 @@ CAREER = "Ingeniería en Ciencias de la Computación"
 async def _propose(client, user, **overrides):
     payload = {
         "career": CAREER,
-        "modalidad": "Escolarizada",
         "username": user["username"],
         "emailHash": user["emailHash"],
         "reason": "Actualizar créditos",
@@ -77,7 +76,7 @@ async def test_vote_reaches_threshold_auto_approves_and_updates_plan(client, gov
     assert res.status_code == 200 and res.json()["auto_approved"] is True
 
     assert (await client.get(f"/api/proposals/{proposal_id}")).json()["status"] == "auto_approved"
-    plan = (await client.get("/api/plan", params={"career": CAREER, "modalidad": "Escolarizada"})).json()
+    plan = (await client.get("/api/plan", params={"career": CAREER})).json()
     assert plan["courses"][0]["name"] == "Programación"
     assert plan["min_credits"] == 250
 

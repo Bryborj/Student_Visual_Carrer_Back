@@ -5,7 +5,6 @@ def test_format_proposal():
     mock_row = {
         "id": "prop123",
         "career": "Ingeniería en Ciencias de la Computación",
-        "modalidad": "Escolarizada",
         "author_username": "LoboDev",
         "author_email_hash": "hash123456",
         "reason": "Actualización de optativas y créditos",

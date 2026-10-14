@@ -20,7 +20,6 @@ async def test_add_plan_then_visible_in_plans_list_and_plan(client):
         "addPlan",
         payload={
             "career": CAREER,
-            "modalidad": "Escolarizada",
             "faculty": "Facultad de Ciencias Físico Matemáticas",
             "courses": SAMPLE_COURSES,
             "min_credits": 200,
@@ -45,7 +44,7 @@ async def test_approve_and_reject_proposals(client):
     author = await register_user(client, "AutorAdm")
     base = {"career": CAREER, "username": author["username"], "emailHash": author["emailHash"], "courses": SAMPLE_COURSES}
     p1 = (await client.post("/api/proposals", json={**base, "reason": "uno"})).json()["proposal"]["id"]
-    p2 = (await client.post("/api/proposals", json={**base, "reason": "dos", "modalidad": "Mixta"})).json()["proposal"]["id"]
+    p2 = (await client.post("/api/proposals", json={**base, "reason": "dos"})).json()["proposal"]["id"]
 
     assert (await _admin(client, "approve_proposal", proposalId=p1, feedback="ok")).status_code == 200
     assert (await _admin(client, "reject_proposal", proposalId=p2, feedback="no")).status_code == 200
@@ -55,7 +54,25 @@ async def test_approve_and_reject_proposals(client):
     assert proposals[p2]["status"] == "rejected"
 
     # La aprobada quedó aplicada al plan oficial
-    assert (await client.get("/api/plan", params={"career": CAREER, "modalidad": "Escolarizada"})).status_code == 200
+    assert (await client.get("/api/plan", params={"career": CAREER})).status_code == 200
+
+
+async def test_delete_plan(client):
+    # Agregar plan
+    await _admin(
+        client,
+        "addPlan",
+        payload={
+            "career": "Carrera Para Borrar",
+            "courses": SAMPLE_COURSES,
+        },
+    )
+    assert (await client.get("/api/plan", params={"career": "Carrera Para Borrar"})).status_code == 200
+
+    # Borrar plan
+    res = await _admin(client, "delete_plan", payload={"career": "Carrera Para Borrar"})
+    assert res.status_code == 200
+    assert (await client.get("/api/plan", params={"career": "Carrera Para Borrar"})).status_code == 404
 
 
 async def test_admin_unknown_action_and_missing_proposal(client):

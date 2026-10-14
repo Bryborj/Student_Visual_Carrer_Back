@@ -1,6 +1,7 @@
 import pytest
 from httpx import ASGITransport, AsyncClient
 
+from app.config import settings
 from app.main import app
 
 
@@ -12,7 +13,7 @@ async def test_health_check():
         data = response.json()
         assert data["status"] == "healthy"
         assert data["service"] == "Student_Visual_Carrer_Back"
-        assert data["email_sender"] == "community@forobuap.zrootsh.com"
+        assert data["email_sender"] == settings.RESEND_FROM_EMAIL
 
 @pytest.mark.asyncio
 async def test_auth_domain_validation():

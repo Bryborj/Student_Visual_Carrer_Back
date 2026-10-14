@@ -39,8 +39,7 @@ async def handle_admin(req: AdminActionRequest):
         if not payload or not payload.get("career") or not payload.get("courses"):
             raise HTTPException(status_code=400, detail="El plan debe contener career y courses.")
 
-        career = payload["career"]
-        modalidad = payload.get("modalidad") or payload.get("mode") or "Escolarizada"
+        career = payload["career"].strip()
         faculty_name = payload.get("faculty")
         logo_url = payload.get("logo_url", "")
         courses = payload.get("courses", [])
@@ -57,21 +56,36 @@ async def handle_admin(req: AdminActionRequest):
                     ON CONFLICT (name) DO UPDATE SET
                         logo_url = COALESCE(NULLIF(EXCLUDED.logo_url, ''), faculties.logo_url)
                     RETURNING id;
-                """, faculty_name, logo_url)
+                """, faculty_name.strip(), logo_url)
                 faculty_id = fac_row["id"]
 
             await conn.execute("""
-                INSERT INTO plans (career, modalidad, faculty_id, courses, electives, min_credits, max_credits)
-                VALUES ($1, $2, $3, $4::jsonb, $5::jsonb, $6, $7)
-                ON CONFLICT (career, modalidad) DO UPDATE SET
+                INSERT INTO plans (career, faculty_id, courses, electives, min_credits, max_credits)
+                VALUES ($1, $2, $3::jsonb, $4::jsonb, $5, $6)
+                ON CONFLICT (career) DO UPDATE SET
                     faculty_id = EXCLUDED.faculty_id,
                     courses = EXCLUDED.courses,
                     electives = EXCLUDED.electives,
                     min_credits = EXCLUDED.min_credits,
                     max_credits = EXCLUDED.max_credits;
-            """, career, modalidad, faculty_id, json.dumps(courses), json.dumps(electives), min_credits, max_credits)
+            """, career, faculty_id, json.dumps(courses), json.dumps(electives), min_credits, max_credits)
 
         return {"success": True, "message": "Plan agregado/actualizado correctamente."}
+
+    if action == "delete_plan":
+        payload = req.payload or {}
+        career = payload.get("career")
+        plan_id = payload.get("id")
+        if not career and not plan_id:
+            raise HTTPException(status_code=400, detail="career o id requerido para eliminar el plan.")
+
+        async with db.pool.acquire() as conn:
+            if plan_id:
+                await conn.execute("DELETE FROM plans WHERE id = $1;", int(plan_id))
+            else:
+                await conn.execute("DELETE FROM plans WHERE career = $1;", career)
+
+        return {"success": True, "message": f"Plan '{career or plan_id}' eliminado correctamente."}
 
     if action == "get_proposals":
         async with db.pool.acquire() as conn:

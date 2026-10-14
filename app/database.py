@@ -54,10 +54,10 @@ class Database:
                 courses_json = json.dumps(plan["courses"]) if not isinstance(plan["courses"], str) else plan["courses"]
                 electives_json = json.dumps(plan.get("electives", [])) if not isinstance(plan.get("electives", []), str) else plan.get("electives", [])
                 await conn.execute("""
-                    INSERT INTO plans (id, career, modalidad, faculty_id, courses, electives, min_credits, max_credits)
-                    VALUES ($1, $2, $3, $4, $5::jsonb, $6::jsonb, $7, $8)
-                    ON CONFLICT (career, modalidad) DO NOTHING;
-                """, plan["id"], plan["career"], plan.get("modalidad", "Escolarizada"), plan.get("faculty_id"),
+                    INSERT INTO plans (id, career, faculty_id, courses, electives, min_credits, max_credits)
+                    VALUES ($1, $2, $3, $4::jsonb, $5::jsonb, $6, $7)
+                    ON CONFLICT (career) DO NOTHING;
+                """, plan["id"], plan["career"], plan.get("faculty_id"),
                      courses_json, electives_json, plan.get("min_credits"), plan.get("max_credits"))
 
             # Sincronizar secuencias serial de PostgreSQL
@@ -81,14 +81,12 @@ class Database:
 
                 CREATE TABLE IF NOT EXISTS plans (
                     id SERIAL PRIMARY KEY,
-                    career VARCHAR(255) NOT NULL,
-                    modalidad VARCHAR(100) DEFAULT 'Escolarizada',
+                    career VARCHAR(255) UNIQUE NOT NULL,
                     faculty_id INTEGER REFERENCES faculties(id) ON DELETE SET NULL,
                     courses JSONB NOT NULL DEFAULT '[]'::jsonb,
                     electives JSONB DEFAULT '[]'::jsonb,
                     min_credits INTEGER,
-                    max_credits INTEGER,
-                    UNIQUE(career, modalidad)
+                    max_credits INTEGER
                 );
 
                 CREATE TABLE IF NOT EXISTS forum_users (
@@ -123,7 +121,6 @@ class Database:
                 CREATE TABLE IF NOT EXISTS plan_proposals (
                     id VARCHAR(50) PRIMARY KEY,
                     career VARCHAR(255) NOT NULL,
-                    modalidad VARCHAR(100) DEFAULT 'Escolarizada',
                     author_username VARCHAR(100) NOT NULL,
                     author_email_hash VARCHAR(255) NOT NULL,
                     reason TEXT NOT NULL,
@@ -149,6 +146,30 @@ class Database:
                     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
                     UNIQUE(proposal_id, voter_email_hash)
                 );
+
+                -- Migración segura e idempotente para eliminar columna 'modalidad' si la BD ya existía
+                DO $$
+                BEGIN
+                    IF EXISTS (
+                        SELECT 1 FROM information_schema.columns 
+                        WHERE table_name = 'plans' AND column_name = 'modalidad'
+                    ) THEN
+                        ALTER TABLE plans DROP CONSTRAINT IF EXISTS plans_career_modalidad_key;
+                        ALTER TABLE plans DROP COLUMN IF EXISTS modalidad;
+                        IF NOT EXISTS (
+                            SELECT 1 FROM pg_constraint WHERE conname = 'plans_career_key'
+                        ) THEN
+                            ALTER TABLE plans ADD CONSTRAINT plans_career_key UNIQUE (career);
+                        END IF;
+                    END IF;
+
+                    IF EXISTS (
+                        SELECT 1 FROM information_schema.columns 
+                        WHERE table_name = 'plan_proposals' AND column_name = 'modalidad'
+                    ) THEN
+                        ALTER TABLE plan_proposals DROP COLUMN IF EXISTS modalidad;
+                    END IF;
+                END $$;
             """)
             logger.info("Database tables verified and ready.")
             await self.seed_initial_data(conn)

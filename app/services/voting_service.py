@@ -13,7 +13,6 @@ class VotingService:
     async def apply_proposal_to_plan(conn, proposal: dict):
         """Aplica los cambios de una propuesta directamente sobre la tabla oficial 'plans'."""
         career = proposal["career"]
-        modalidad = proposal.get("modalidad") or "Escolarizada"
         courses = proposal["proposed_courses"]
         electives = proposal.get("proposed_electives") or []
         min_credits = proposal.get("min_credits")
@@ -23,16 +22,16 @@ class VotingService:
         electives_json = json.dumps(electives) if not isinstance(electives, str) else electives
 
         await conn.execute("""
-            INSERT INTO plans (career, modalidad, courses, electives, min_credits, max_credits)
-            VALUES ($1, $2, $3::jsonb, $4::jsonb, $5, $6)
-            ON CONFLICT (career, modalidad) DO UPDATE SET
+            INSERT INTO plans (career, courses, electives, min_credits, max_credits)
+            VALUES ($1, $2::jsonb, $3::jsonb, $4, $5)
+            ON CONFLICT (career) DO UPDATE SET
                 courses = EXCLUDED.courses,
                 electives = EXCLUDED.electives,
                 min_credits = EXCLUDED.min_credits,
                 max_credits = EXCLUDED.max_credits;
-        """, career, modalidad, courses_json, electives_json, min_credits, max_credits)
+        """, career, courses_json, electives_json, min_credits, max_credits)
 
-        logger.info(f"✅ Plan '{career} ({modalidad})' actualizado exitosamente en base de datos.")
+        logger.info(f"✅ Plan '{career}' actualizado exitosamente en base de datos.")
 
     @classmethod
     async def cast_vote(cls, proposal_id: str, voter_username: str, voter_email_hash: str, vote_type: str = "for") -> dict:
