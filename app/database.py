@@ -1,5 +1,7 @@
-import asyncpg
 import logging
+
+import asyncpg
+
 from app.config import settings
 
 logger = logging.getLogger(__name__)
@@ -9,7 +11,7 @@ class Database:
 
     async def connect(self):
         db_url = settings.get_database_url()
-        logger.info(f"Connecting to database...")
+        logger.info("Connecting to database...")
         self.pool = await asyncpg.create_pool(
             dsn=db_url,
             min_size=2,

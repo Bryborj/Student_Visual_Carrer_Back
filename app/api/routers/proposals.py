@@ -1,10 +1,12 @@
 import json
 import uuid
 from datetime import datetime, timedelta, timezone
+
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
-from app.database import db
+
 from app.config import settings
+from app.database import db
 from app.services.voting_service import VotingService
 
 router = APIRouter(prefix="/proposals", tags=["Proposals"])

@@ -43,3 +43,8 @@ htmlcov/
 
 # Docker
 .docker/
+
+# Entornos locales/producción (las plantillas *.example sí se versionan)
+.env.*
+!.env.example
+!.env.prod.example

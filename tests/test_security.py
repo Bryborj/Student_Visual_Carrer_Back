@@ -1,5 +1,7 @@
 import hashlib
+
 from app.security import hash_email, hash_password, verify_password
+
 
 def test_hash_email():
     email = "lobo.feroz@alumno.buap.mx"

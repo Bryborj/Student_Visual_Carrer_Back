@@ -2,6 +2,7 @@ import hashlib
 import hmac
 import os
 
+
 def hash_email(email: str) -> str:
     """Calcula el hash SHA-256 anónimo del correo electrónico institucional."""
     return hashlib.sha256(email.strip().lower().encode("utf-8")).hexdigest()

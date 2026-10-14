@@ -31,13 +31,21 @@ services:
     volumes:
       - ./app:/app/app:z
     environment:
-      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:devpassword@postgres:5432/forobuap_dev}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-change-me}
+      # La BD de desarrollo SIEMPRE es el servicio postgres local (nunca la BD remota).
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-devpassword}@postgres:5432/${POSTGRES_DB:-forobuap_dev}
+      - DEV_MODE=${DEV_MODE:-true}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin-dev}
       - ADMIN_NOTIFICATION_EMAIL=${ADMIN_NOTIFICATION_EMAIL:-community@forobuap.zrootsh.com}
       - RESEND_API_KEY=${RESEND_API_KEY:-}
       - RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-community@forobuap.zrootsh.com}
       - RESEND_FROM_NAME=${RESEND_FROM_NAME:-Foro Comunidad BUAP 🐺}
-      - DEV_MODE=${DEV_MODE:-true}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:5400,http://localhost:5173}
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8001/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001", "--reload"]
 
 volumes:

@@ -1,5 +1,5 @@
-import pytest
 from app.api.routers.proposals import format_proposal
+
 
 def test_format_proposal():
     mock_row = {

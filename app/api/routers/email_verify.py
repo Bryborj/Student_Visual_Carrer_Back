@@ -1,6 +1,8 @@
 import re
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+
 from app.services.hunter_service import HunterService
 
 router = APIRouter(tags=["VerifyEmail"])

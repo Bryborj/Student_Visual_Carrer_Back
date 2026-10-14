@@ -1,5 +1,7 @@
 import json
+
 from fastapi import APIRouter, HTTPException, Query
+
 from app.database import db
 
 router = APIRouter(tags=["Plans"])

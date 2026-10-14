@@ -1,10 +1,12 @@
 import json
+
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from app.database import db
-from app.config import settings
-from app.services.voting_service import VotingService
+
 from app.api.routers.proposals import format_proposal
+from app.config import settings
+from app.database import db
+from app.services.voting_service import VotingService
 
 router = APIRouter(tags=["Admin"])
 

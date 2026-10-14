@@ -1,8 +1,10 @@
 import json
 import uuid
 from datetime import datetime, timezone
+
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
+
 from app.database import db
 
 router = APIRouter(tags=["Forum"])

@@ -1,8 +1,9 @@
 import json
 import logging
 from datetime import datetime, timezone
-from app.database import db
+
 from app.config import settings
+from app.database import db
 from app.services.email_service import EmailService
 
 logger = logging.getLogger(__name__)

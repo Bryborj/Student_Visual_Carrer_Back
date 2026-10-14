@@ -1,13 +1,15 @@
 import random
-import time
 import re
-from fastapi import APIRouter, HTTPException, Request
+import time
+
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+
+from app.config import settings
 from app.database import db
 from app.security import hash_email, hash_password, verify_password
 from app.services.email_service import EmailService
 from app.services.hunter_service import HunterService
-from app.config import settings
 
 router = APIRouter(tags=["Auth"])
 
