@@ -14,6 +14,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger("student_visual_carrer_back")
 
+class HealthEndpointFilter(logging.Filter):
+    """Filtra las consultas a /api/health para no saturar los logs de desarrollo con healthchecks periódicos."""
+    def filter(self, record: logging.LogRecord) -> bool:
+        return "/api/health" not in record.getMessage()
+
+logging.getLogger("uvicorn.access").addFilter(HealthEndpointFilter())
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Iniciando backend FastAPI de Student Visual Carrer...")
