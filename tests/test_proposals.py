@@ -92,3 +92,36 @@ async def test_vote_requires_registered_user_and_existing_proposal(client):
     ghost = {"username": "fantasma", "emailHash": "nada"}
     assert (await _vote(client, proposal_id, ghost)).status_code == 401
     assert (await _vote(client, "no-existe", user)).status_code == 400
+
+
+async def test_new_plan_proposal_validation(client):
+    user = await register_user(client, "Autor5")
+    res = await _propose(client, user, career="Licenciatura en Física", is_new_plan=True)
+    assert res.status_code == 200
+    assert res.json()["proposal"]["isNewPlan"] is True
+
+    # Una carrera que ya existe no puede proponerse como nueva
+    from app.database import db
+    async with db.pool.acquire() as conn:
+        await conn.execute("INSERT INTO plans (career, courses) VALUES ($1, '[]'::jsonb);", "Plan Existente")
+    assert (await _propose(client, user, career="Plan Existente", is_new_plan=True)).status_code == 409
+
+
+async def test_new_plan_auto_approved_credits_author(client, governance):
+    author = await register_user(client, "Creador")
+    voter = await register_user(client, "Votante6")
+    await register_user(client, "Votante7")
+    new_career = "Licenciatura en Matemáticas Aplicadas"
+    proposal_id = (
+        await _propose(client, author, career=new_career, is_new_plan=True)
+    ).json()["proposal"]["id"]
+
+    res = await _vote(client, proposal_id, voter, "for")
+    assert res.status_code == 200 and res.json()["auto_approved"] is True
+
+    plan = (await client.get("/api/plan", params={"career": new_career})).json()
+    assert plan["contributor_username"] == "Creador"
+
+    listed = (await client.get("/api/plans-list")).json()
+    entry = next(p for p in listed if p["career"] == new_career)
+    assert entry["contributor_username"] == "Creador"

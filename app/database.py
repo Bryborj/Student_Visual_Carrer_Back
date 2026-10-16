@@ -172,6 +172,10 @@ class Database:
                         ALTER TABLE plan_proposals DROP COLUMN IF EXISTS modalidad;
                     END IF;
                 END $$;
+
+                -- Créditos al alumno que integró el plan y marca de propuesta de plan nuevo
+                ALTER TABLE plans ADD COLUMN IF NOT EXISTS contributor_username VARCHAR(100);
+                ALTER TABLE plan_proposals ADD COLUMN IF NOT EXISTS is_new_plan BOOLEAN DEFAULT FALSE;
             """)
             logger.info("Database tables verified and ready.")
             await self.seed_initial_data(conn)

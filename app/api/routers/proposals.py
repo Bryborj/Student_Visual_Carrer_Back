@@ -21,6 +21,7 @@ class CreateProposalRequest(BaseModel):
     electives: list = []
     min_credits: int | None = None
     max_credits: int | None = None
+    is_new_plan: bool = False
 
 class VoteRequest(BaseModel):
     username: str | None = None
@@ -45,6 +46,7 @@ def format_proposal(row: dict, user_vote: str | None = None) -> dict:
         "electives": electives,
         "minCredits": row.get("min_credits"),
         "maxCredits": row.get("max_credits"),
+        "isNewPlan": bool(row.get("is_new_plan")),
         "status": row["status"],
         "votesFor": row.get("votes_for", 0),
         "votesAgainst": row.get("votes_against", 0),
@@ -60,13 +62,17 @@ async def create_proposal(
     req: CreateProposalRequest,
     authorization: str | None = Header(None)
 ):
-    """Permite a un alumno registrado proponer una actualización a un plan de estudios."""
+    """Permite a un alumno registrado proponer una actualización o un plan de estudios nuevo."""
     if not db.pool:
         raise HTTPException(status_code=500, detail="Database not connected.")
 
     user = await resolve_authenticated_user(authorization, req.username, req.emailHash)
     author_username = user["username"]
     author_email_hash = user["emailHash"]
+
+    career = req.career.strip()
+    if not career:
+        raise HTTPException(status_code=400, detail="El nombre de la carrera es obligatorio.")
 
     if not req.reason.strip():
         raise HTTPException(status_code=400, detail="La justificación o motivo del cambio es obligatoria.")
@@ -75,6 +81,14 @@ async def create_proposal(
         raise HTTPException(status_code=400, detail="El plan propuesto debe incluir las materias.")
 
     async with db.pool.acquire() as conn:
+        if req.is_new_plan:
+            exists = await conn.fetchval("SELECT 1 FROM plans WHERE career = $1;", career)
+            if exists:
+                raise HTTPException(
+                    status_code=409,
+                    detail="Esa carrera ya existe en la herramienta. Propón una actualización en su lugar."
+                )
+
         proposal_id = str(uuid.uuid4())[:8]
         voting_ends_at = datetime.now(timezone.utc) + timedelta(days=settings.VOTE_WINDOW_DAYS)
 
@@ -85,14 +99,15 @@ async def create_proposal(
             INSERT INTO plan_proposals (
                 id, career, author_username, author_email_hash, reason,
                 proposed_courses, proposed_electives, min_credits, max_credits,
-                status, votes_for, votes_against, voting_ends_at, created_at
+                status, votes_for, votes_against, voting_ends_at, created_at, is_new_plan
             ) VALUES (
                 $1, $2, $3, $4, $5,
                 $6::jsonb, $7::jsonb, $8, $9,
-                'voting', 1, 0, $10, NOW()
+                'voting', 1, 0, $10, NOW(), $11
             );
-        """, proposal_id, req.career, author_username, author_email_hash, req.reason,
-             courses_json, electives_json, req.min_credits, req.max_credits, voting_ends_at)
+        """, proposal_id, career, author_username, author_email_hash, req.reason,
+             courses_json, electives_json, req.min_credits, req.max_credits, voting_ends_at,
+             req.is_new_plan)
 
         # Registrar el voto inicial a favor del autor
         await conn.execute("""

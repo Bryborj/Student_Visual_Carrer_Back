@@ -17,6 +17,7 @@ async def get_plans_list():
             SELECT 
                 p.id AS "_id",
                 p.career,
+                p.contributor_username,
                 f.name AS faculty,
                 f.logo_url
             FROM plans p
@@ -29,7 +30,8 @@ async def get_plans_list():
                 "_id": str(r["_id"]) if r["_id"] else None,
                 "career": r["career"],
                 "faculty": r["faculty"],
-                "logo_url": r["logo_url"]
+                "logo_url": r["logo_url"],
+                "contributor_username": r["contributor_username"]
             }
             for r in rows
         ]
@@ -51,6 +53,7 @@ async def get_plan(
                 p.electives,
                 p.min_credits,
                 p.max_credits,
+                p.contributor_username,
                 f.name AS faculty,
                 f.logo_url
             FROM plans p

@@ -17,19 +17,21 @@ class VotingService:
         electives = proposal.get("proposed_electives") or []
         min_credits = proposal.get("min_credits")
         max_credits = proposal.get("max_credits")
+        contributor = proposal.get("author_username")
 
         courses_json = json.dumps(courses) if not isinstance(courses, str) else courses
         electives_json = json.dumps(electives) if not isinstance(electives, str) else electives
 
         await conn.execute("""
-            INSERT INTO plans (career, courses, electives, min_credits, max_credits)
-            VALUES ($1, $2::jsonb, $3::jsonb, $4, $5)
+            INSERT INTO plans (career, courses, electives, min_credits, max_credits, contributor_username)
+            VALUES ($1, $2::jsonb, $3::jsonb, $4, $5, $6)
             ON CONFLICT (career) DO UPDATE SET
                 courses = EXCLUDED.courses,
                 electives = EXCLUDED.electives,
                 min_credits = EXCLUDED.min_credits,
-                max_credits = EXCLUDED.max_credits;
-        """, career, courses_json, electives_json, min_credits, max_credits)
+                max_credits = EXCLUDED.max_credits,
+                contributor_username = EXCLUDED.contributor_username;
+        """, career, courses_json, electives_json, min_credits, max_credits, contributor)
 
         logger.info(f"✅ Plan '{career}' actualizado exitosamente en base de datos.")
 
