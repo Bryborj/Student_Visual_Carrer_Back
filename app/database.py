@@ -18,9 +18,16 @@ class Database:
         logger.info(f"Connecting to database at {masked_url}...")
         self.pool = await asyncpg.create_pool(
             dsn=db_url,
-            min_size=2,
+            min_size=1,
             max_size=10,
-            command_timeout=60
+            max_inactive_connection_lifetime=60.0,
+            timeout=15.0,
+            command_timeout=30.0,
+            server_settings={
+                "tcp_keepalives_idle": "30",
+                "tcp_keepalives_interval": "10",
+                "tcp_keepalives_count": "3",
+            },
         )
         logger.info("Database pool established.")
 
