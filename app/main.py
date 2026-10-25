@@ -65,7 +65,7 @@ async def health_check():
     return {
         "status": "healthy",
         "service": "Student_Visual_Carrer_Back",
-        "version": "2.0.0",
+        "version": "2.1.0",
         "email_sender": settings.RESEND_FROM_EMAIL
     }
 
